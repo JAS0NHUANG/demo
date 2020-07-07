@@ -1,0 +1,129 @@
+* {
+  font-family: 'Noto Sans TC', 'Questrial', Sans-serif;
+}
+
+h1 {
+  font-size: 36px;
+  margin: 0px;
+}
+
+p {
+  font-size: 14px;
+}
+
+span.red {
+  color: #e74149;
+  font-size: 16px;
+}
+
+body {
+  margin: 0px;
+  height: 100%;
+  text-align: center;
+  background: #eee;
+}
+
+form {
+  margin: 121px auto 66px;
+  box-sizing: border-box;
+  padding: 55px 35px 40px 42px;
+  max-width: 645px;
+  width: 100%;
+  text-align: left;
+  background: #fff;
+  border-top: 8px solid #fad312;
+  box-shadow: 1.8px 2.4px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+label.label__title {
+  display: inline-block;
+  font-size: 20px;
+  padding-top: 50px;
+  padding-bottom: 10px;
+  position: relative;
+}
+
+input[type=text], input[type=email] {
+  border: 1px solid #aaa;
+  width: 287px;
+  height: 23px;
+}
+input[type=submit] {
+  border: none;
+  background: #fad312;
+  font-size: 16px;
+  width: 92px;
+  height: 40px;
+  border-radius: 3px;
+  margin-top: 50px;
+}
+
+.radio__label {
+  line-height: 3;
+}
+
+input[type=radio] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  margin: 0;
+  height: 0;
+  width: 0;
+}
+
+.container {
+  position: relative;
+}
+
+.checkmark {
+  position: relative;
+  display: inline-block;
+  top: 4px;
+  left:0px;
+  height: 16px;
+  width: 16px;
+  background-color: #aaa;
+  border-radius: 50%;
+}
+
+
+input[type=radio]:checked + .checkmark {
+  background-color: #aaa;
+}
+
+.checkmark:after {
+  content: '';
+  position: relative;
+  top: 4px;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  display: none;
+  background: #fff;
+  border-radius: 50%;
+  z-index: 3;
+}
+
+input[type=radio]:checked + .checkmark:after {
+  display: block;
+}
+
+input[type=radio] + label {
+  position: relative;
+  left: 50px;
+}
+
+footer {
+  width: 100%;
+  background: #000;
+  color: #999999;
+  box-sizing: border-box;
+  margin: 0px;
+  line-height: 70px;
+}
+
+@media(max-width: 768px){
+  form {
+    margin: 0 auto;
+  }
+}
