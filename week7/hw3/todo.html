@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+
+    <title>未來事件許願池</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="the__list">
+      <h1>未來事件許願池</h1>
+      <form action="" id="add__todo__form">
+        <input id="add__todo" type="text" placeholder="在這裡輸入你的願望" />
+      </form>
+      <ul id="todo__ul">
+        <li id="todo__0">
+          <input type="checkbox" />
+          <div class="todo__content">作業寫的快又好！</div>
+          <div class="delete">X</div>
+        </li>
+      </ul>
+    </div>
+    <script>
+      const addTodo = document.querySelector('#add__todo__form')
+      const todoUl = document.querySelector('#todo__ul')
+      let todoCount = 0
+      let todoArray = []
+
+      function escapeHtml(unsafe) {
+        return unsafe
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#039;')
+      }
+
+      addTodo.addEventListener('submit', evt => {
+        evt.preventDefault()
+        if (addTodo[0].value !== '' && !todoArray.includes(addTodo[0].value)) {
+          todoArray.push(escapeHtml(addTodo[0].value))
+          const newLi = document.createElement('li')
+          todoUl.appendChild(newLi)
+          todoCount += 1
+          newLi.id = `todo__${todoCount}`
+          newLi.innerHTML = `<input type="checkbox"><div class="todo__content">${escapeHtml(
+            addTodo[0].value
+          )}</div><div class="delete">X</div>`
+        }
+        addTodo[0].value = ''
+      })
+
+      todoUl.addEventListener('click', evt => {
+        console.log(evt.target.parentNode.childNodes[1].innerHTML)
+        if (evt.target.className === 'delete') {
+          let p = evt.target.parentNode
+          p.remove()
+          todoArray = todoArray.filter(item => {
+            return item !== evt.target.parentNode.childNodes[1].innerHTML
+          })
+          return
+        }
+        if (evt.target.type === 'checkbox') {
+          let p = evt.target.parentNode
+          p.classList.toggle('done')
+        }
+      })
+    </script>
+  </body>
+</html>
