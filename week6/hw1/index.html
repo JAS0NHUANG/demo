@@ -16,39 +16,39 @@
   </head>
 
   <body>
-    <header>
-      <div id="header__wraper">
+    <header class="header">
+      <div class="header__wraper">
         <div class="header__logo">
           Just A Bite!
         </div>
-        <nav>
-          <ul>
+        <nav class="nav">
+          <ul class="nav__list">
             <li class="nav__items">
-              <a href="">抽個大獎</a>
+              <a class="nav__links" href="">抽個大獎</a>
             </li>
             <li class="nav__items">
-              <a href="">我要點餐</a>
+              <a class="nav__links" href="">我要點餐</a>
             </li>
             <li class="nav__items">
-              <a href="">查詢訂單</a>
+              <a class="nav__links" href="">查詢訂單</a>
             </li>
             <li class="nav__items">
-              <a href="">常見問題</a>
+              <a class="nav__links" href="">常見問題</a>
             </li>
           </ul>
         </nav>
       </div>
     </header>
 
-    <section id="banner__wraper">
-      <h1 class="title">
+    <section class="banner sections">
+      <h1 class="banner__title">
         咬一口廚房
       </h1>
-      <div id="banner__img"></div>
+      <div class="banner__img"></div>
     </section>
 
-    <section id="intro__wraper">
-      <h2>
+    <section class="intro sections">
+      <h2 class="section__title">
         當輕食之風盛起
       </h2>
       <p class="intro__texts">
@@ -62,20 +62,20 @@
       </p>
     </section>
 
-    <section id="btn__wraper">
-      <button id="btn__order">
+    <section class="btn sections">
+      <button class="btn__order">
         我要點餐
       </button>
-      <button id="btn__query">
+      <button class="btn__query">
         查詢訂單
       </button>
     </section>
 
-    <section id="menu__wraper">
-      <h2>
+    <section class="menu sections">
+      <h2 class="section__title">
         Menu 搶先看
       </h2>
-      <div id="menu__items">
+      <div class="menu__wraper">
         <div class="menu__img">
           <img src="./img/f-001.png" alt="" />
         </div>
@@ -91,13 +91,13 @@
       </div>
     </section>
 
-    <section id="reviews__wraper">
-      <h2>
+    <section class="reviews sections">
+      <h2 class="section__title">
         吃過都說好
       </h2>
-      <div id="reviews__box">
+      <div class="reviews__box">
         <div class="reviews__container">
-          <div class="avatars">
+          <div class="reviews__avatars">
             <img src="./img/p-1.png" alt="" />
           </div>
           <div class="reviews__content">
@@ -108,7 +108,7 @@
         </div>
 
         <div class="reviews__container">
-          <div class="avatars">
+          <div class="reviews__avatars">
             <img src="./img/p-2.png" alt="" />
           </div>
           <div class="reviews__content">
@@ -118,7 +118,7 @@
         </div>
 
         <div class="reviews__container">
-          <div class="avatars">
+          <div class="reviews__avatars">
             <img src="./img/p-3.png" alt="" />
           </div>
           <div class="reviews__content">
@@ -129,11 +129,12 @@
       </div>
     </section>
 
-    <section id="location__wraper">
-      <h2>
+    <section class="location sections">
+      <h2 class="section__title">
         我們在哪裡
       </h2>
       <iframe
+        class="location__map"
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.0027469642164!2d121.56234485102692!3d25.03398084436661!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abb6da9c9e1f%3A0x1206bcf082fd10a6!2sNo.%207%2C%20Section%205%2C%20Xinyi%20Rd%2C%20Xinyi%20District%2C%20Taipei%20City%2C%20Taiwan%20110!5e0!3m2!1sen!2sfr!4v1593896654264!5m2!1sen!2sfr"
         width="600"
         height="450"
@@ -145,9 +146,9 @@
       ></iframe>
     </section>
 
-    <footer>
-      <div id="footer__info">
-        <div id="footer__contact">
+    <footer class="footer">
+      <div class="footer__info">
+        <div class="footer__contact">
           <p>餐館地址: 天上地下天堂路三分之一里六段520號</p>
           <p>訂位專線：02-1314-5566</p>
           <p>
@@ -156,12 +157,12 @@
           </p>
           <p>email：service@justabite.com.tw</p>
         </div>
-        <div id="footer__logo">
+        <div class="footer__logo">
           <p>Just A Bite!</p>
           <p>Facebook / Instagram / Youtube</p>
         </div>
       </div>
-      <div id="footer__copyright">
+      <div class="footer__copyright">
         <p>
           Copyright © 2020 Just A Bite All Rights Reserved.
           咬一口股份有限公司版權所有

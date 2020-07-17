@@ -1,5 +1,5 @@
 * {
-  font-family: "Noto Sans TC", "Questrial", Sans-serif;
+  font-family: 'Noto Sans TC', 'Questrial', Sans-serif;
 }
 
 body {
@@ -23,10 +23,10 @@ p {
   background: #fff;
   border-top: 8px solid #fad312;
   box-shadow: 1.8px 2.4px 5px 0 rgba(0, 0, 0, 0.3);
-}
-.form__title {
-  font-size: 36px;
-  margin: 0px;
+  &__title {
+    font-size: 36px;
+    margin: 0px;
+  }
 }
 
 .red {
@@ -65,43 +65,45 @@ label.label__title {
   height: 0;
   width: 0;
   z-index: 3;
-}
-.radio__label {
-  cursor: pointer;
-  line-height: 3;
-}
-.radio__container {
-  position: relative;
+  &__label {
+    cursor: pointer;
+    line-height: 3;
+  }
+  &__container {
+    position: relative;
+  }
 }
 
 .radio__checkmark {
   position: relative;
   display: inline-block;
   top: 2px;
-  left: 0px;
+  left:0px;
   height: 16px;
   width: 16px;
   background-color: #aaa;
   border-radius: 50%;
-}
-.radio__checkmark:after {
-  content: "";
-  position: relative;
-  top: 4px;
-  left: 4px;
-  width: 8px;
-  height: 8px;
-  display: none;
-  background: #fff;
-  border-radius: 50%;
-  z-index: 3;
+  &:after {
+    content: '';
+    position: relative;
+    top: 4px;
+    left: 4px;
+    width: 8px;
+    height: 8px;
+    display: none;
+    background: #fff;
+    border-radius: 50%;
+    z-index: 3;
+  }
 }
 
-.radio:checked + .radio__checkmark {
-  background-color: #aaa;
-}
-.radio:checked + .radio__checkmark:after {
-  display: block;
+.radio:checked {
+  & + .radio__checkmark {
+    background-color: #aaa;
+    &:after {
+      display: block;
+    }
+  }
 }
 
 .submit {
@@ -123,10 +125,8 @@ footer {
   line-height: 70px;
 }
 
-@media (max-width: 698px) {
+@media(max-width: 698px){
   #application__form {
     margin: 0 auto;
   }
 }
-
-/*# sourceMappingURL=style.css.map */
