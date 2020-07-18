@@ -124,7 +124,7 @@ footer {
 }
 
 @media (max-width: 698px) {
-  #application__form {
+  .form {
     margin: 0 auto;
   }
 }
