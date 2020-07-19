@@ -48,18 +48,17 @@
       let currentColor = 'blue'
       let changeToColor = 'green'
 
-      toggleButton.addEventListener('click', evt => {
-
-        function toggler(currentColor, changeToColor, element) {
-          const currentColorAndElement = `${currentColor}__${element}`
-          const changeToColorAndElement = `${changeToColor}__${element}`
-          const current = document.querySelectorAll(`.${currentColorAndElement}`) 
-          for (let i in [...current]) {
-            current[i].classList.add(changeToColorAndElement)
-            current[i].classList.remove(currentColorAndElement)
-          }
+      function toggler(currentColor, changeToColor, element) {
+        const currentColorAndElement = `${currentColor}__${element}`
+        const changeToColorAndElement = `${changeToColor}__${element}`
+        const current = document.querySelectorAll(`.${currentColorAndElement}`) 
+        for (let i in [...current]) {
+          current[i].classList.add(changeToColorAndElement)
+          current[i].classList.remove(currentColorAndElement)
         }
-        
+      }
+
+      toggleButton.addEventListener('click', evt => {
         toggler(currentColor, changeToColor, 'color')
         toggler(currentColor, changeToColor, 'background')
         toggler(currentColor, changeToColor, 'light')
@@ -111,9 +110,7 @@
         if (evt.target.type === 'checkbox') {
           let p = evt.target.parentNode
           if (evt.target.checked === true) {
-            console.log(p)
             p.classList.add(`${currentColor}__done`)
-            console.log(document.querySelector('.checkbox__replace').classList)
             evt.target.nextElementSibling.classList.add(`${currentColor}__checked`)
             
           } else {
