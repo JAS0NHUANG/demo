@@ -56,8 +56,11 @@ input[type='checkbox'] {
 
 button {
   border: none;
-  background: rgb(0, 0, 0, 0);
+  border-radius: 50%;
+  width:30px;
+  height: 30px;
   cursor: pointer;
+  transition: all 0.3s ease-in;
 }
 
 .blue__color {
@@ -68,12 +71,22 @@ button {
   background: #0d618b;
 }
 
+.blue__button {
+  background: #0d618b;
+}
+
+.green__button {
+  background: #28782d;
+}
+
 .blue__button:hover {
-  color: #28782d;
+  transform: scale(1.2);
+  background: #28782d;
 }
 
 .green__button:hover {
-  color: #0d618b;
+  transform: scale(1.2);
+  background: #0d618b;
 }
 
 .green__color {
