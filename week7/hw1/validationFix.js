@@ -8,15 +8,17 @@ formElement.addEventListener('submit', evt => {
   let hasError = false
 
   for (let i in [...requiredDiv]) {
+    // 不同輸入欄位傳給對應的變數
     const textInput = requiredDiv[i].querySelector('input[type=text]') 
     const emailInput = requiredDiv[i].querySelector('input[type=email]')
     const radioInput = [...requiredDiv[i].querySelectorAll('input[type=radio]')]
-
+    
+    // 選擇 Label 與 p
     const inputLabel = requiredDiv[i].querySelector('label')
     const warning = requiredDiv[i].querySelector('p')
     
     // 判斷不同輸入場景
-    if (radioInput.length && radioInput.some(radio => radio.checked)) {
+    if (radioInput.some(radio => radio.checked)) {
       let checkedRadioContent
       for(let i in radioInput) {
         if (radioInput[i].checked) {
@@ -37,7 +39,7 @@ formElement.addEventListener('submit', evt => {
     }
   }
 
-  // 如果沒有 Error：
+  // 如果沒有 Error（沒有未輸入之必填欄位），印出 submitedData 內容
   if (!hasError) {
     const notRequired = document.querySelectorAll('.notRequired')
     for (let i in [...notRequired]) {
@@ -49,7 +51,8 @@ formElement.addEventListener('submit', evt => {
     alert(submittedData.join(''))
     return
   }
-
+  
+  // 有 Error 的話就會阻止表單傳送
   evt.preventDefault()
 })
 

@@ -13,15 +13,15 @@
   <body>
     <div class="the__list blue__color blue__light">
     <div class="button">
-      <button class="blue__button blue__color"></button>
+      <button class="blue__button blue__color" />
     </div>
       <h1>未來事件許願池</h1>
-      <form action="" id="add__todo__form">
+      <form action="" class="add__todo__form">
         <input class="add__todo blue__color" type="text" placeholder="在這裡許下你的願望" />
       </form>
-      <ul id="todo__ul">
-        <li id="todo__0" class="blue__background">
-          <input type="checkbox" class="blue__light" />
+      <ul class="todo__ul">
+        <li class="blue__background">
+          <input type="checkbox" />
           <div class="checkbox__replace"></div>
           <div class="todo__content">作業寫的快又好！</div>
           <div class="delete">X</div>
@@ -29,6 +29,9 @@
       </ul>
     </div>
 
+    <script src="./script.js"></script>
+
+    <!--
     <script>
       const addTodo = document.querySelector('#add__todo__form')
       const todoUl = document.querySelector('#todo__ul')
@@ -120,5 +123,6 @@
         }
       })
     </script>
+    -->
   </body>
 </html>
