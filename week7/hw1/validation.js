@@ -1,65 +1,54 @@
-const submit = document.querySelector('.submit')
-const inputTags = document.querySelectorAll('input')
+// 設定 form 與 requiredDiv 變數
+const formElement = document.querySelector('form')
 const requiredDiv = document.querySelectorAll('.required')
-console.log([...requiredDiv])
 
-submit.addEventListener('click', evt => {
-  let submittedData = []
+// 在 formElement 加上監聽器
+formElement.addEventListener('submit', evt => {
+  const submittedData = []
   let hasError = false
-  
-  for (let i = 0; i < inputTags.length -1; i++) {
-    const inputValue = inputTags[i].value
-    const inputParentNode = inputTags[i].parentNode
-    let inputLabel
-    if (inputParentNode !== undefined) {
-      inputLabel = inputTags[i].parentNode.querySelector('label')
-    }
-    let pClassList
-    
-    if (inputTags[i].type === "radio") {
-      let radioCheckedContent = checkRadio(inputTags[i])
-      if (radioCheckedContent) {
-        submittedData.push(`報名類型: ${radioCheckedContent}\n`)
+
+  for (const i in [...requiredDiv]) {
+    // 不同輸入欄位傳給對應的變數
+    const textInput = requiredDiv[i].querySelector('input[type=text]')
+    const emailInput = requiredDiv[i].querySelector('input[type=email]')
+    const radioInput = [...requiredDiv[i].querySelectorAll('input[type=radio]')]
+    // 選擇 Label 與 p
+    const inputLabel = requiredDiv[i].querySelector('label')
+    const warning = requiredDiv[i].querySelector('p')
+    // 判斷不同輸入場景
+    if (radioInput.some(radio => radio.checked)) {
+      let checkedRadioContent
+      for (const i in radioInput) {
+        if (radioInput[i].checked) {
+          checkedRadioContent = radioInput[i].parentNode.querySelector('label').innerHTML
+        }
       }
-    } else if (inputValue === '') {
-      if (inputTags[i].parentNode.querySelector('p') !== null) {
-        pClassList = inputTags[i].parentNode.querySelector('p').classList
-        pClassList.remove('hidden')
-        hasError = true
-      }
+      warning.classList.add('hidden')
+      submittedData.push(`${inputLabel.innerHTML}: ${checkedRadioContent} \n`)
+    } else if (textInput && textInput.value !== '') {
+      warning.classList.add('hidden')
+      submittedData.push(`${inputLabel.innerHTML}: ${textInput.value}\n`)
+    } else if (emailInput && emailInput.value !== '') {
+      warning.classList.add('hidden')
+      submittedData.push(`${inputLabel.innerHTML}: ${emailInput.value}\n`)
     } else {
-      if (inputParentNode !== undefined && inputParentNode.querySelector('p') !== null) {
-        pClassList = inputTags[i].parentNode.querySelector('p').classList
-        pClassList.add('hidden')
-      }
-      if (inputLabel !== undefined && inputValue !== "提交") {
-        submittedData.push(`${inputLabel.innerHTML}: ${inputValue}\n`)
-      }
+      warning.classList.remove('hidden')
+      hasError = true
     }
   }
-  if (hasError === false) {
-    alert(submittedData.join(''))
+
+  // 如果沒有 Error（沒有未輸入之必填欄位），印出 submitedData 內容
+  if (!hasError) {
+    const notRequired = document.querySelectorAll('.notRequired')
+    for (const i in [...notRequired]) {
+      console.log(notRequired[i])
+      submittedData.push(
+        `${notRequired[i].querySelector('label').innerHTML}: ${notRequired[i].querySelector('input').value}`
+      )
+    }
+    alert(`您輸入的資料為：\n${submittedData.join('')}`)
     return
   }
+  // 有 Error 的話就會阻止表單傳送
   evt.preventDefault()
 })
-
-let type__1Checked = false
-function checkRadio(inputTag) {
-  const radioClassList = inputTag.parentNode.parentNode.querySelector('p').classList
-  if (inputTag.checked) {
-    console.log(inputTag)
-    radioClassList.add('hidden')
-    if (inputTag.id === "type__1") {
-      type__1Checked = true
-    }
-    return inputTag.parentNode.querySelector('label').innerHTML
-  }
-
-  if (type__1Checked === false && inputTag.id === "type__2") {
-    hasError = true
-    radioClassList.remove('hidden')
-  }
-}
-
-
