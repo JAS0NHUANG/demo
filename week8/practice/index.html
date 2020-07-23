@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <style>
+    div {
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <div class="buttons">
+    <button>BioShock</button>
+    <button>League of Legends</button>
+    <button>Overwatch</button>
+  </div>
+  <div class="content">
+  </div>
+
+  <script>
+    // 宣告變數
+    const request = new XMLHttpRequest()
+    const API_URL = 'https://api.twitch.tv/kraken/streams'
+    let offsetNum = 0
+    let gameName
+    let lastGameName
+    let mediumImg 
+   
+    // 收到 response 後的動作
+    request.onload = function () {
+      let json
+      try {
+        json = JSON.parse(request.response)
+      } catch (err) {
+        console.log(err)
+      }
+
+      if (json.streams.length === 0) {
+        offsetNum = null
+        return
+      }
+
+      if (offsetNum === 0) {
+        document.querySelector('.content').innerHTML = ''
+      }
+      for (let i in json.streams) {
+        offsetNum += 1
+        mediumImg = json.streams[i].preview.medium
+        const newDiv = document.createElement('div')
+        const img = document.createElement('img')
+        img.src = `${mediumImg}`
+          newDiv.appendChild(img)
+        document.querySelector('.content').appendChild(newDiv)
+      }
+    }
+
+    // 送出 request
+    function sendRequest(gameName) {
+      console.log(gameName)
+      request.open('GET', `${API_URL}/?game=${gameName}&limit=9&offset=${offsetNum}`, true)
+      request.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json')
+      request.setRequestHeader('Client-ID', 'ucau5lz6swwaed1ecwemy0ewrcvjva')
+      request.send()
+    }
+
+    // 選擇遊戲
+    document.querySelector('.buttons').addEventListener('click', evt => {
+      gameName = evt.target.innerHTML
+      offsetNum = gameName === lastGameName ? offsetNum : 0
+      lastGameName = gameName
+      sendRequest(gameName)
+    })
+
+    // 偵測滑鼠滾輪
+    window.addEventListener('wheel', evt => {
+      if(scrollMaxY === 0 && gameName !== undefined) {
+        sendRequest(gameName)
+      }
+    })
+
+    // 捲動到距離頁面底部 35px
+    window.addEventListener('scroll', evt => {
+      console.log(evt.currentTarget.scrollY + 20)
+      console.log(evt.currentTarget.scrollMaxY)
+      if(evt.currentTarget.scrollMaxY < evt.currentTarget.scrollY + 35){ 
+        sendRequest(gameName)
+      }
+    })
+  </script>
+</body>
+</html>
