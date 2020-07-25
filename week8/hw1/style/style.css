@@ -1,27 +1,3 @@
-/* ---------- for all ---------- */
-* {
-  font-family: "Noto Sans TC", "Questrial", Sans-serif;
-  font-size: 18px;
-}
-
-a {
-  text-decoration: none;
-  color: #010101;
-}
-
-h2 {
-  font-size: 36px;
-  border-left: solid 15px #a3dea2;
-  padding-left: 15px;
-  display: inline-block;
-  margin-top: 70px;
-}
-
-section {
-  margin: auto;
-  text-align: center;
-}
-
 /* ---------- header ---------- */
 .header {
   position: fixed;
@@ -79,6 +55,52 @@ li.nav__items > a:hover {
   color: #fff;
 }
 
+/* ---------- footer ---------- */
+footer {
+  width: 100%;
+  max-width: 1920px;
+  height: auto;
+  max-height: auto;
+  position: relative;
+  margin: 0px auto 0px auto;
+}
+
+#footer__info {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  align-items: auto;
+  font-size: 16px;
+  color: #484848;
+  background-color: #e8efee;
+}
+
+#footer__contact {
+  margin: 35px 10px 0px 60px;
+}
+
+#footer__logo {
+  margin: 35px 60px 0px 10px;
+}
+
+#footer__logo :first-child {
+  font-size: 36px;
+  color: #489846;
+}
+
+#footer__copyright {
+  display: block;
+  background-color: #35564b;
+  text-align: center;
+}
+
+#footer__copyright > p {
+  color: #ffffff;
+  font-size: 16px;
+  padding: 15px;
+  margin: 0px;
+}
+
 /* ---------- banner ---------- */
 #banner__wraper {
   width: 100%;
@@ -116,7 +138,7 @@ h1 {
   position: relative;
   width: 100%;
   height: 100%;
-  background: center/cover url(./img/2.jpg) no-repeat;
+  background: center/cover url(../img/2.jpg) no-repeat;
 }
 #banner__img:after {
   width: 100%;
@@ -269,52 +291,6 @@ iframe {
   width: 100%;
 }
 
-/* ---------- footer ---------- */
-footer {
-  width: 100%;
-  max-width: 1920px;
-  height: auto;
-  max-height: auto;
-  position: relative;
-  margin: 0px auto 0px auto;
-}
-
-#footer__info {
-  display: flex;
-  position: relative;
-  justify-content: space-between;
-  align-items: auto;
-  font-size: 16px;
-  color: #484848;
-  background-color: #e8efee;
-}
-
-#footer__contact {
-  margin: 35px 10px 0px 60px;
-}
-
-#footer__logo {
-  margin: 35px 60px 0px 10px;
-}
-
-#footer__logo :first-child {
-  font-size: 36px;
-  color: #489846;
-}
-
-#footer__copyright {
-  display: block;
-  background-color: #35564b;
-  text-align: center;
-}
-
-#footer__copyright > p {
-  color: #ffffff;
-  font-size: 16px;
-  padding: 15px;
-  margin: 0px;
-}
-
 /* ------------------- faq__section ---------- */
 h3 {
   font-weight: normal;
@@ -387,28 +363,22 @@ h3 span {
   background: #000;
   opacity: 0.3;
 }
-
-.lottery__mainImg {
-  background: url(./img/games-bn.jpg) center/cover no-repeat;
-}
-
-.lottery__firstImg {
-  background: url(./img/bg.jpg) center/cover no-repeat;
-}
-
-.lottery__secondImg {
-  background: url(./img/living-room-1872192_1920.jpg) center/cover no-repeat;
-}
-
-.lottery__thirdImg {
-  background: url(./img/youtube-2617510_1920.jpg) center/cover no-repeat;
-}
-
 .lottery__main hr {
   border-top: 1px dotted #ccc;
   border-bottom: none;
 }
-
+.lottery__mainImg {
+  background: url(../img/games-bn.jpg) center/cover no-repeat;
+}
+.lottery__firstImg {
+  background: url(../img/bg.jpg) center/cover no-repeat;
+}
+.lottery__secondImg {
+  background: url(../img/living-room-1872192_1920.jpg) center/cover no-repeat;
+}
+.lottery__thirdImg {
+  background: url(../img/youtube-2617510_1920.jpg) center/cover no-repeat;
+}
 .lottery__form {
   position: relative;
   top: 55px;
@@ -419,16 +389,6 @@ h3 span {
   background: rgba(255, 255, 255, 0.8);
   z-index: 3;
 }
-
-.normal {
-  max-width: 500px;
-}
-
-.wide {
-  max-width: 768px;
-  background: none;
-}
-
 .lottery__prize {
   color: #fff;
   font-size: 28px;
@@ -469,6 +429,39 @@ h3 span {
   background: #e62a45;
   border-radius: 8px;
   cursor: pointer;
+}
+
+.normal {
+  max-width: 500px;
+}
+
+.wide {
+  max-width: 768px;
+  background: none;
+}
+
+/* ---------- for all ---------- */
+* {
+  font-family: "Noto Sans TC", "Questrial", Sans-serif;
+  font-size: 18px;
+}
+
+a {
+  text-decoration: none;
+  color: #010101;
+}
+
+h2 {
+  font-size: 36px;
+  border-left: solid 15px #a3dea2;
+  padding-left: 15px;
+  display: inline-block;
+  margin-top: 70px;
+}
+
+section {
+  margin: auto;
+  text-align: center;
 }
 
 /* ---------- RWD ---------- */
