@@ -40,12 +40,9 @@ request.onload = function () {
 }
 
 setInterval(function getData() {
-    request.open('GET', API_URL, true)
-    request.send()
+  request.open('GET', API_URL, true)
+  request.send()
 }, 200)
-
-
-
 
 
 document.querySelector('.lottery__submit').addEventListener('click', evt => {
