@@ -1,0 +1,247 @@
+.debug {
+  outline: 1px solid gold;
+}
+* {
+  font-family: "sans-serif";
+  margin: 0;
+}
+
+body {
+  background: #000;
+  z-index: -1;
+}
+
+.header {
+  height: 300px;
+  background: linear-gradient(#583f84, #000);
+  transition: height 0.2s ease-in;
+}
+
+.header__wraper {
+  width: 100%;
+  max-width: 1080px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} 
+
+.header__logo {
+  max-width: 30%;
+}
+
+.header__logo__img {
+  display: inline-block;
+  max-height:200px;
+  max-width: 80%;
+}
+
+.header__title {
+  max-width:40%;
+  text-align: right;
+  display: inline-block;
+  color: #fff;
+  font-size: 36px;
+}
+
+.streaming {
+  padding: 5px;
+  margin-bottom: 15px;
+  justify-content: flex-start;
+  height: 65px;
+  font-size: 10px;
+}
+
+.main {
+  text-align: center;
+  background: #000;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.main__games {
+  width: 100%;
+  max-width: 1080px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.preview {
+  width: 190px;
+  margin: 10px;
+  position: relative;
+}
+
+.placeholder {
+  cursor: pointer;
+  position: relative;
+  width: 175px;
+  height: 240px;
+  transition: all 0.3s ease-in;
+  z-index: 3;
+}
+
+.placeholder__image {
+  background: url(./img/twitch.0.0.webp) center/contain no-repeat;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 175px;
+  height: 240px;
+  z-index: 0;
+  transition: all 0.3s ease-in;
+}
+
+.placeholder__image:hover {
+  transform: translate(10px, -10px);
+}
+
+.placeholder__selected {
+  transform: translate(10px, -10px);
+  box-shadow: #583f84 -10px 10px, #583f84 -9px 9px, #583f84 -8px 8px, #583f84 -7px 7px, #583f84 -6px 6px, #583f84 -5px 5px, #583f84 -4px 4px, #583f84 -3px 3px, #583f84 -2px 2px, #583f84 -1px 1px;
+}
+
+.placeholder:hover {
+  transform: translate(10px, -10px);
+  box-shadow: #583f84 -10px 10px, #583f84 -9px 9px, #583f84 -8px 8px, #583f84 -7px 7px, #583f84 -6px 6px, #583f84 -5px 5px, #583f84 -4px 4px, #583f84 -3px 3px, #583f84 -2px 2px, #583f84 -1px 1px;
+}
+
+.placeholder::after {
+  content: '';
+  background: rgba(0,0,0,0.3);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 175px;
+  height: 240px;
+  transition: all 0.3s ease-in;
+}
+
+.placeholder:hover::after {
+  background: none;
+}
+
+.title {
+  color: #fff;
+  min-height: 50px;
+}
+
+.main__streams {
+  max-width: 1080px;
+  margin: auto;
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+}
+
+.stream__container {
+  background: #222;
+  margin: 20px;
+  width: 300px;
+  transition: all 0.2s ease-in;
+}
+
+.stream__container:hover {
+  transform: translate(10px, -10px);
+  box-shadow: #583f84 -10px 10px, #583f84 -9px 9px, #583f84 -8px 8px, #583f84 -7px 7px, #583f84 -6px 6px, #583f84 -5px 5px, #583f84 -4px 4px, #583f84 -3px 3px, #583f84 -2px 2px, #583f84 -1px 1px;
+}
+
+.stream__preview {
+  position: relative;
+  display: block;
+  height: 200px;
+  width:300px;
+  background: url(./img/twitch.0.0.webp) center/contain no-repeat;
+}
+
+.stream__preview:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  height: 200px;
+  width:300px;
+  z-index: 0;
+} 
+
+.stream__info {
+  display: flex;
+  align-items: center;
+}
+
+.stream__avatar {
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  border-radius: 50%;
+}
+
+.stream__title {
+  width: 70%;
+  max-height: 50px;
+  text-align: left;
+  color: #fff;
+}
+
+.stream__title p {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.empty {
+  width: 300px;
+  margin: 20px;
+}
+
+.loadmore__btn {
+  display: block;
+  width: 300px;
+}
+
+.linebreaker {
+  width: 100%;
+}
+
+button {
+  width: 100%;
+  height: 80px;
+  border: none;
+  background: #583f84;
+  color: #fff;
+  margin: 80px;
+  cursor: pointer;
+}
+
+.back-to-top {
+  position: fixed;
+  color: #fff;
+  right: 20px;
+  bottom: 10px;
+  background: #583f84;
+  padding: 10px;
+  border: #000 2px solid;
+  display: block;
+  cursor: pointer;
+}
+
+@media(max-width: 768px){
+  .header {
+    height: 180px;
+  }
+  .header__title {
+    font-size: 18px;
+  }
+  .streaming {
+    justify-content: flex-start;
+    height: 65px;
+    font-size: 10px;
+  }
+}
+

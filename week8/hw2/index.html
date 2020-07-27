@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>Twitch Top Games</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./streams.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__wraper">
+      <div class="header__logo">
+        <img class="header__logo__img" src="./img/twitch.0.0.webp" alt="" />
+      </div>
+      <div class="header__title">
+        <h1>
+          
+          <span>TWITCH</span><br />
+          <span> TOP</span><br />
+          GAMES
+        </h1>
+      </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="main__games">
+        <div class="main__top1 preview">
+          <div class="placeholder__image"></div>
+          <div class="main__top1 placeholder">
+          </div>
+          <div class="main__top1 title"></div>
+        </div>
+        <div class="main__top2 preview">
+          <div class="placeholder__image"></div>
+          <div class="main__top2 placeholder">
+          </div>
+          <div class="main__top2 title"></div>
+        </div>
+        <div class="main__top3 preview">
+          <div class="placeholder__image"></div>
+          <div class="main__top3 placeholder">
+          </div>
+          <div class="main__top3 title"></div>
+        </div>
+        <div class="main__top4 preview">
+          <div class="placeholder__image"></div>
+          <div class="main__top4 placeholder">
+          </div>
+          <div class="main__top4 title"></div>
+        </div>
+        <div class="main__top5 preview">
+          <div class="placeholder__image"></div>
+          <div class="main__top5 placeholder">
+          </div>
+          <div class="main__top5 title"></div>
+        </div>
+      </div>
+      
+      <div class="main__streams init">
+      </div>
+      <div class="back-to-top">
+      TOP
+      </div>
+    </main>
+
+    <script>
+      const API_URL = 'https://api.twitch.tv/kraken'
+      const clientId = 'ucau5lz6swwaed1ecwemy0ewrcvjva'
+
+      const header = document.querySelector('.header')
+      const mainGames = document.querySelector('.main__games')
+
+      const request = new XMLHttpRequest()
+
+      request.onload = () => {
+        let json
+        json = JSON.parse(request.response)
+
+        console.log(json.top)
+        for (let i in json.top) {
+          console.log(json.top[i].game.name)
+          console.log(mainGames)
+          console.log(i + 1)
+          const gameNum = mainGames.querySelector(`.main__top${Number(i) + 1}`)
+          gameNum.querySelector(
+            '.placeholder'
+          ).style.background = `url(${json.top[i].game.box.large}) center/cover no-repeat`
+          gameNum.querySelector('.title').innerHTML = json.top[i].game.name
+        }
+      }
+
+      request.open('GET', `${API_URL}/games/top?limit=5`, true)
+      request.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json')
+      request.setRequestHeader('Client-ID', clientId)
+      request.onerror = () => console.log('error')
+      request.send()
+
+      let lastSelected
+      let selectedGameTitle
+      
+      mainGames.addEventListener('click', evt => {
+        if (evt.target.classList.contains('placeholder')) {
+          if (!lastSelected || lastSelected !== evt.target) {
+            document.querySelector('.main__streams').innerHTML = ''
+            offsetNum = 0
+            evt.target.classList.toggle('placeholder__selected')
+            if (lastSelected) {
+              lastSelected.classList.toggle('placeholder__selected')
+            }
+            lastSelected = evt.target
+            selectedGameTitle = evt.target.nextElementSibling.innerHTML
+            console.log(selectedGameTitle)
+          }
+
+          header.classList.add('streaming')
+          header.querySelector('.header__wraper').classList.add('streaming')
+          header.querySelector('.header__logo').classList.add('streaming')
+          header.querySelector('.header__logo img').classList = 'streaming'
+          header.querySelector('.header__title').classList.add('streaming')
+          createDivs()
+          showStreams(selectedGameTitle)
+        }
+      })
+
+      // streams
+      let streamNum
+      let offsetNum = 0
+
+      function createDivs() {
+        if (document.querySelectorAll('.empty').length > 0) {
+          const emptyDivArray = [...document.querySelectorAll('.empty')]
+          emptyDivArray[0].remove()
+          emptyDivArray[1].remove()
+        }
+        if(document.querySelector('.linebreaker')){
+        document.querySelector('.linebreaker').remove()
+                    }
+        if(document.querySelector('button')){
+        document.querySelector('button').remove()
+              }
+        for (let i =0; i < 20; i++) {
+            streamNum = `stream__${offsetNum + 1}`
+            const streamDiv = document.createElement('div')
+            streamDiv.classList = 'stream__container'
+            streamDiv.innerHTML = `<div class="stream__preview">
+                </div>
+               <div class="stream__info">
+                      <div class="stream__avatar">
+                    </div>
+                        <div class="stream__title">
+                        </div>
+                    </div>`
+            streamDiv.classList.add(streamNum)
+            document.querySelector('.main__streams').appendChild(streamDiv)
+            offsetNum += 1
+          }
+          const emptyDiv1 = document.createElement('div')
+          const emptyDiv2 = document.createElement('div')
+          const lineBreaker = document.createElement('div')
+          emptyDiv1.classList = 'empty'
+          emptyDiv2.classList = 'empty'
+          lineBreaker.classList = 'linebreaker'
+          document.querySelector('.main__streams').appendChild(emptyDiv1)
+          document.querySelector('.main__streams').appendChild(emptyDiv2)
+          document.querySelector('.main__streams').appendChild(lineBreaker)
+          const loadMoreBtn = document.createElement('button')
+          loadMoreBtn.innerHTML = 'Load More'
+          document.querySelector('.main__streams').appendChild(loadMoreBtn)
+
+      }
+
+      function showStreams(gameTitle) {
+        let streamData
+        request.onload = () => {
+          streamData = JSON.parse(request.response)
+          console.log(streamData.streams[1])
+          for (let i in streamData.streams) {
+            const streamDataI = streamData.streams[i]
+            const newOffsetNum = offsetNum - 20 + Number(i)
+            const streamContainer = document.querySelector(`.stream__${newOffsetNum + 1}`)
+            streamContainer.querySelector('.stream__preview').style.background = `url(${streamDataI.preview.medium}) center/cover no-repeat`
+            streamContainer.querySelector(`.stream__avatar`).style.background = `url(${streamDataI.channel.logo}) center/cover no-repeat`
+            let channelDesc = streamDataI.channel.description.length ? streamDataI.channel.description : '<br>' 
+            streamContainer.querySelector(`.stream__title`).innerHTML = 
+              `<p>${channelDesc}</p>
+              <p>${streamData.streams[i].channel.display_name}</p>`
+          }
+        }
+        request.open(
+          'GET',
+          `${API_URL}/streams/?game=${gameTitle}&limit=20&offset=${offsetNum}`,
+          true
+        )
+        request.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json')
+        request.setRequestHeader('Client-ID', clientId)
+        request.onerror = () => console.log('error')
+        request.send()
+      }
+
+      document.querySelector('.main__streams').addEventListener('click', evt => {
+        if (evt.target.innerHTML === 'Load More'){
+          createDivs()
+          showStreams(selectedGameTitle)
+        }
+      })
+      document.querySelector('.back-to-top').addEventListener('click', evt => {
+          window.scrollTo(0, 0);
+            })
+    </script>
+  </body>
+</html>
