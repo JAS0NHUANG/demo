@@ -26,6 +26,10 @@
 
     <main class="main">
       <div class="main__games">
+        <div class="main__games__carousel left">
+          &lt;
+        </div>
+
         <div class="main__top1 preview">
           <div class="placeholder__image"></div>
           <div class="main__top1 placeholder">
@@ -56,6 +60,10 @@
           </div>
           <div class="main__top5 title"></div>
         </div>
+
+        <div class="main__games__carousel right">
+          &gt;
+        </div>
       </div>
       
       <div class="main__streams init">
@@ -74,15 +82,21 @@
 
       const request = new XMLHttpRequest()
 
+      let topGameOffset = 0
+
+      function getTopGamesRequest() {
       request.onload = () => {
         let json
         json = JSON.parse(request.response)
+              console.log(json)
 
+              if(document.querySelector('.placeholder__selected')) {
+                      document.querySelector('.placeholder__selected').classList.remove('placeholder__selected')
+                      lastSelected = ''
+                      selectedGameTitle = ''
+                    }
         console.log(json.top)
         for (let i in json.top) {
-          console.log(json.top[i].game.name)
-          console.log(mainGames)
-          console.log(i + 1)
           const gameNum = mainGames.querySelector(`.main__top${Number(i) + 1}`)
           gameNum.querySelector(
             '.placeholder'
@@ -90,12 +104,31 @@
           gameNum.querySelector('.title').innerHTML = json.top[i].game.name
         }
       }
-
-      request.open('GET', `${API_URL}/games/top?limit=5`, true)
+      console.log(`${API_URL}/games/top?limit=5&offset=${topGameOffset}`)
+      let limitNum = 5
+      if (topGameOffset === 15) { limitNum = 6 }
+      request.open('GET', `${API_URL}/games/top?limit=${limitNum}&offset=${topGameOffset}`, true)
       request.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json')
       request.setRequestHeader('Client-ID', clientId)
       request.onerror = () => console.log('error')
       request.send()
+      topGameOffset += 5
+      }
+      getTopGamesRequest()
+
+      // when > clicked
+      document.querySelector('.right').addEventListener('click', evt => {
+              getTopGamesRequest()
+      })
+      
+      document.querySelector('.left').addEventListener('click', evt => {
+            console.log(topGameOffset)
+            if (topGameOffset <= 5) return
+            topGameOffset -= 10
+              console.log(topGameOffset)
+            getTopGamesRequest()
+
+      })
 
       let lastSelected
       let selectedGameTitle

@@ -61,6 +61,7 @@ body {
 }
 
 .main__games {
+  position: relative;
   width: 100%;
   max-width: 1080px;
   margin: auto;
@@ -71,7 +72,7 @@ body {
 }
 
 .preview {
-  width: 190px;
+  width: 175px;
   margin: 10px;
   position: relative;
 }
@@ -123,6 +124,36 @@ body {
 
 .placeholder:hover::after {
   background: none;
+}
+
+.right, .left {
+  position: absolute;
+  top: 0;
+  margin: 10px;
+  display: inline-block;
+  color: #583f84;
+  font-size: 40px;
+  font-weight: bold;
+  line-height: 240px;
+  height: 240px;
+  width: 70px;
+  z-index: 4;
+  transition: all 0.4s ease-in;
+  cursor: pointer;
+}
+
+.right {
+  right: 0;
+}
+
+.left {
+  left: 0
+}
+
+.right:hover, .left:hover {
+  color: #fff;
+  background: #583f84;
+  opacity: 0.5;
 }
 
 .title {
