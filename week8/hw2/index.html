@@ -96,7 +96,7 @@
                       selectedGameTitle = ''
                     }
         console.log(json.top)
-        for (let i in json.top) {
+        for (let i = 0; i < 5; i++) {
           const gameNum = mainGames.querySelector(`.main__top${Number(i) + 1}`)
           gameNum.querySelector(
             '.placeholder'
@@ -105,9 +105,7 @@
         }
       }
       console.log(`${API_URL}/games/top?limit=5&offset=${topGameOffset}`)
-      let limitNum = 5
-      if (topGameOffset === 15) { limitNum = 6 }
-      request.open('GET', `${API_URL}/games/top?limit=${limitNum}&offset=${topGameOffset}`, true)
+      request.open('GET', `${API_URL}/games/top?limit=6&offset=${topGameOffset}`, true)
       request.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json')
       request.setRequestHeader('Client-ID', clientId)
       request.onerror = () => console.log('error')
