@@ -2,7 +2,7 @@
   outline: 1px solid gold;
 }
 * {
-  font-family: "sans-serif";
+  font-family: 'sans-serif';
   margin: 0;
 }
 
@@ -40,7 +40,7 @@ a {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-} 
+}
 
 .header__logo {
   height: 65px;
@@ -57,12 +57,13 @@ a {
   display: inline-block;
   color: #fff;
   padding: 5px;
-  transition: all 0.3s ease-in
+  transition: all 0.3s ease-in;
 }
 
-.header__title:hover{
+.header__title:hover {
   transform: translate(5px, -5px);
-  box-shadow:  #fff -5px 5px, #fff -4px 4px, #fff -3px 3px, #fff -2px 2px, #fff -1px 1px;
+  box-shadow: #fff -5px 5px, #fff -4px 4px, #fff -3px 3px, #fff -2px 2px,
+    #fff -1px 1px;
 }
 
 .main {
@@ -119,17 +120,21 @@ a {
 
 .placeholder__selected {
   transform: translate(10px, -10px);
-  box-shadow: #583f84 -10px 10px, #583f84 -9px 9px, #583f84 -8px 8px, #583f84 -7px 7px, #583f84 -6px 6px, #583f84 -5px 5px, #583f84 -4px 4px, #583f84 -3px 3px, #583f84 -2px 2px, #583f84 -1px 1px;
+  box-shadow: #583f84 -10px 10px, #583f84 -9px 9px, #583f84 -8px 8px,
+    #583f84 -7px 7px, #583f84 -6px 6px, #583f84 -5px 5px, #583f84 -4px 4px,
+    #583f84 -3px 3px, #583f84 -2px 2px, #583f84 -1px 1px;
 }
 
 .placeholder:hover {
   transform: translate(10px, -10px);
-  box-shadow: #583f84 -10px 10px, #583f84 -9px 9px, #583f84 -8px 8px, #583f84 -7px 7px, #583f84 -6px 6px, #583f84 -5px 5px, #583f84 -4px 4px, #583f84 -3px 3px, #583f84 -2px 2px, #583f84 -1px 1px;
+  box-shadow: #583f84 -10px 10px, #583f84 -9px 9px, #583f84 -8px 8px,
+    #583f84 -7px 7px, #583f84 -6px 6px, #583f84 -5px 5px, #583f84 -4px 4px,
+    #583f84 -3px 3px, #583f84 -2px 2px, #583f84 -1px 1px;
 }
 
 .placeholder::after {
   content: '';
-  background: rgba(0,0,0,0.3);
+  background: rgba(0, 0, 0, 0.3);
   position: absolute;
   left: 0;
   top: 0;
@@ -142,7 +147,8 @@ a {
   background: none;
 }
 
-.right, .left {
+.right,
+.left {
   position: absolute;
   top: 0;
   margin: 10px;
@@ -163,10 +169,11 @@ a {
 }
 
 .left {
-  left: 0
+  left: 0;
 }
 
-.right:hover, .left:hover {
+.right:hover,
+.left:hover {
   color: #fff;
   background: #583f84;
   opacity: 0.5;
@@ -207,14 +214,16 @@ a {
 .stream__container:hover {
   filter: brightness(1.5);
   transform: translate(10px, -10px);
-  box-shadow: #583f84 -10px 10px, #583f84 -9px 9px, #583f84 -8px 8px, #583f84 -7px 7px, #583f84 -6px 6px, #583f84 -5px 5px, #583f84 -4px 4px, #583f84 -3px 3px, #583f84 -2px 2px, #583f84 -1px 1px;
+  box-shadow: #583f84 -10px 10px, #583f84 -9px 9px, #583f84 -8px 8px,
+    #583f84 -7px 7px, #583f84 -6px 6px, #583f84 -5px 5px, #583f84 -4px 4px,
+    #583f84 -3px 3px, #583f84 -2px 2px, #583f84 -1px 1px;
 }
 
 .stream__preview {
   position: relative;
   display: block;
   height: 200px;
-  width:300px;
+  width: 300px;
   background: url(./img/twitch.0.0.webp) center/contain no-repeat;
 }
 
@@ -225,9 +234,9 @@ a {
   left: 0;
   display: block;
   height: 200px;
-  width:300px;
+  width: 300px;
   z-index: 0;
-} 
+}
 
 .stream__info {
   display: flex;
@@ -290,10 +299,9 @@ button {
   cursor: pointer;
 }
 
-@media(max-width: 768px){
+@media (max-width: 768px) {
   .header {
     height: 65px;
     font-size: 10px;
   }
 }
-
