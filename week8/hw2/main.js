@@ -49,23 +49,24 @@ function getTopGames (responseData) {
     lastSelected = ''
     selectedGameTitle = ''
   }
-  let imageLoaded = 0
   for (let i = 0; i < 5; i++) {
-    const testImg = document.createElement('img')
-    testImg.src = json.top[i].game.box.large
-    testImg.onload = function () {
-      imageLoaded += 1
-      if (imageLoaded < 5) return
-      for (let i = 0; i < 5; i++) {
-        const gameNum = mainGames.querySelector(`.main__top${Number(i) + 1}`)
-        gameNum.querySelector(
-          '.placeholder'
-        ).style.background = `url(${json.top[i].game.box.large}) center/cover no-repeat`
-        gameNum.querySelector('.title').innerHTML = json.top[i].game.name
-      }
-    }
+    const gameNum = mainGames.querySelector(`.main__top${Number(i) + 1}`)
+    gameNum.querySelector(
+      '.placeholder'
+    ).style.background = `url(${json.top[i].game.box.large}) center/cover no-repeat`
+    gameNum.querySelector('.title').innerHTML = json.top[i].game.name
   }
   topGameOffset += 5
+}
+
+function clearPreview () {
+  for (let i = 0; i < 5; i++) {
+    const gameNum = mainGames.querySelector(`.main__top${Number(i) + 1}`)
+    gameNum.querySelector(
+      '.placeholder'
+    ).style.background = ''
+    gameNum.querySelector('.title').innerHTML = ''
+  }
 }
 
 mainGames.addEventListener('click', evt => {
@@ -73,9 +74,11 @@ mainGames.addEventListener('click', evt => {
   if (evt.target.classList.contains('main__games__carousel')) {
     if (evt.target.classList.contains('left')) {
       if (topGameOffset <= 5) return
+      clearPreview()
       topGameOffset -= 10
       sendRequest(`${API_URL}/games/top?limit=6&offset=${topGameOffset}`)
     } else {
+      clearPreview()
       sendRequest(`${API_URL}/games/top?limit=6&offset=${topGameOffset}`)
     }
   }
