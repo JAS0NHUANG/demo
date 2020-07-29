@@ -25,7 +25,7 @@ a {
   width: 100%;
   text-align: center;
   padding: 5px;
-  font-size: 10px;
+  font-size: 15px;
   height: 65px;
   background: linear-gradient(#583f84, #000);
   z-index: 5;
@@ -53,10 +53,16 @@ a {
 }
 
 .header__title {
-  max-width:40%;
   text-align: right;
   display: inline-block;
   color: #fff;
+  padding: 5px;
+  transition: all 0.3s ease-in
+}
+
+.header__title:hover{
+  transform: translate(5px, -5px);
+  box-shadow:  #fff -5px 5px, #fff -4px 4px, #fff -3px 3px, #fff -2px 2px, #fff -1px 1px;
 }
 
 .main {
