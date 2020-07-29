@@ -11,29 +11,45 @@ body {
   z-index: -1;
 }
 
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+.hide {
+  display: none;
+}
+
 .header {
-  height: 300px;
+  position: fixed;
+  width: 100%;
+  text-align: center;
+  padding: 5px;
+  font-size: 10px;
+  height: 65px;
   background: linear-gradient(#583f84, #000);
+  z-index: 5;
   transition: height 0.2s ease-in;
 }
 
 .header__wraper {
+  height: 65px;
   width: 100%;
   max-width: 1080px;
   margin: auto;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 } 
 
 .header__logo {
+  height: 65px;
   max-width: 30%;
 }
 
 .header__logo__img {
   display: inline-block;
-  max-height:200px;
-  max-width: 80%;
+  height: 65px;
 }
 
 .header__title {
@@ -41,18 +57,11 @@ body {
   text-align: right;
   display: inline-block;
   color: #fff;
-  font-size: 36px;
-}
-
-.streaming {
-  padding: 5px;
-  margin-bottom: 15px;
-  justify-content: flex-start;
-  height: 65px;
-  font-size: 10px;
 }
 
 .main {
+  position: relative;
+  top: 75px;
   text-align: center;
   background: #000;
   display: block;
@@ -78,6 +87,7 @@ body {
 }
 
 .placeholder {
+  background: none;
   cursor: pointer;
   position: relative;
   width: 175px;
@@ -170,7 +180,18 @@ body {
   margin: auto;
 }
 
+.main__streams h1 {
+  box-sizing: border-box;
+  border-bottom: 4px solid #583f84;
+  height: 50px;
+  text-align: left;
+  color: #fff;
+  padding: 5px;
+  width: 100%;
+}
+
 .stream__container {
+  filter: brightness(0.9);
   background: #222;
   margin: 20px;
   width: 300px;
@@ -178,6 +199,7 @@ body {
 }
 
 .stream__container:hover {
+  filter: brightness(1.5);
   transform: translate(10px, -10px);
   box-shadow: #583f84 -10px 10px, #583f84 -9px 9px, #583f84 -8px 8px, #583f84 -7px 7px, #583f84 -6px 6px, #583f84 -5px 5px, #583f84 -4px 4px, #583f84 -3px 3px, #583f84 -2px 2px, #583f84 -1px 1px;
 }
@@ -264,13 +286,6 @@ button {
 
 @media(max-width: 768px){
   .header {
-    height: 180px;
-  }
-  .header__title {
-    font-size: 18px;
-  }
-  .streaming {
-    justify-content: flex-start;
     height: 65px;
     font-size: 10px;
   }

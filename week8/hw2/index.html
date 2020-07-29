@@ -10,17 +10,23 @@
   <body>
     <header class="header">
       <div class="header__wraper">
-      <div class="header__logo">
-        <img class="header__logo__img" src="./img/twitch.0.0.webp" alt="" />
-      </div>
-      <div class="header__title">
-        <h1>
-          
-          <span>TWITCH</span><br />
-          <span> TOP</span><br />
-          GAMES
-        </h1>
-      </div>
+        <div class="header__logo">
+          <a href="./index.html">
+            <img 
+              class="header__logo__img" 
+              src="./img/twitch.0.0.webp" alt="" 
+            />
+          </a>
+        </div>
+        <a href="./index.html">
+          <div class="header__title">
+            <h1>
+              <span>TWITCH</span><br />
+              <span> TOP</span><br />
+              GAMES
+            </h1>
+          </div>
+        </a>
       </div>
     </header>
 
@@ -71,8 +77,13 @@
       <div class="back-to-top">
       TOP
       </div>
+      <button class="load__more hide">Load More</button>
     </main>
+    
+    <script src="./main.js">
+    </script>
 
+    <!--
     <script>
       const API_URL = 'https://api.twitch.tv/kraken'
       const clientId = 'ucau5lz6swwaed1ecwemy0ewrcvjva'
@@ -240,5 +251,6 @@
           window.scrollTo(0, 0);
             })
     </script>
+    -->
   </body>
 </html>
