@@ -80,6 +80,8 @@ a {
   position: relative;
   width: 100%;
   max-width: 1080px;
+  box-sizing: border-box;
+  padding: 0px 15px;
   margin: auto;
   display: flex;
   justify-content: center;
@@ -182,6 +184,7 @@ a {
 .title {
   color: #fff;
   min-height: 50px;
+  word-break: break-word;
 }
 
 .main__streams {
@@ -196,7 +199,6 @@ a {
 .main__streams h1 {
   box-sizing: border-box;
   border-bottom: 4px solid #583f84;
-  height: 50px;
   text-align: left;
   color: #fff;
   padding: 5px;
@@ -304,4 +306,57 @@ button {
     height: 65px;
     font-size: 10px;
   }
+    .preview {
+    width: 100px;
+    margin: 5px;
+  }
+
+.placeholder {
+  width: 100px;
+  height: 138px;
+}
+
+.placeholder__image {
+  top: 0px;
+  left: 0px;
+  width: 100px;
+  height: 138px;
+}
+
+.placeholder__image:hover {
+  transform: translate(5px, -5px);
+}
+
+.placeholder__selected {
+  transform: translate(5px, -5px);
+  box-shadow: #583f84 -5px 5px, #583f84 -4px 4px,
+    #583f84 -3px 3px, #583f84 -2px 2px, #583f84 -1px 1px;
+}
+
+.placeholder:hover {
+  transform: translate(5px, -5px);
+  box-shadow: #583f84 -5px 5px, #583f84 -4px 4px,
+    #583f84 -3px 3px, #583f84 -2px 2px, #583f84 -1px 1px;
+}
+
+.placeholder::after {
+  content: '';
+  background: rgba(0, 0, 0, 0.3);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100px;
+  height: 138px;
+  transition: all 0.3s ease-in;
+}
+
+.placeholder:hover::after {
+  background: none;
+}
+.right,
+.left {
+  width: 50px;
+  top: 50;
+  margin: 0;
+} 
 }
