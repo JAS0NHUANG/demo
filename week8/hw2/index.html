@@ -2,27 +2,43 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    
     <meta
       name="viewport"
-      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+      content=
+        "width=device-width, 
+        user-scalable=no, 
+        initial-scale=1.0, 
+        maximum-scale=1.0, 
+        minimum-scale=1.0"
     />
+
     <title>Twitch Top Games</title>
     <link rel="stylesheet" href="./style.css" />
-    <link rel="stylesheet" href="./streams.css" />
   </head>
   <body>
     <header class="header">
       <div class="header__wraper">
         <div class="header__logo">
           <a href="./index.html">
-            <img class="header__logo__img" src="./img/twitch.0.0.webp" alt="" />
+            <img 
+              class="header__logo__img" 
+              src="./img/twitch.0.0.webp" 
+              alt="" 
+            />
+          </a>
+          <a href="./index.html">
+            <div class="header__title">
+              <h1>TWITCH TOP GAMES</h1>
+            </div>
           </a>
         </div>
-        <a href="./index.html">
-          <div class="header__title">
-            <h1>TWITCH TOP GAMES</h1>
-          </div>
-        </a>
+        <div>
+          <form>
+            <input class="search__input" type="text" placeholder="Search your favorite game.">
+            <input class="search__btn" type="submit" value="Search">
+          </form>
+        </div>
       </div>
     </header>
 
