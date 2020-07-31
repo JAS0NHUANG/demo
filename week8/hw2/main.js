@@ -3,15 +3,12 @@ const API_URL = 'https://api.twitch.tv/kraken'
 const clientId = 'ucau5lz6swwaed1ecwemy0ewrcvjva'
 const request = new XMLHttpRequest()
 
-// selectors
-const mainGames = document.querySelector('.main__games')
-
 // other variables
 let topGameOffset = 0
-let streamNum
+let streamDivNum
 let streamOffset = 0
-let lastSelected
-let selectedGameTitle
+let lastSelectedGame
+let selectedGame
 
 // escape html
 function escapeHtml (unsafe) {
@@ -23,33 +20,24 @@ function escapeHtml (unsafe) {
     .replace(/'/g, '&#039;')
 }
 
-sendRequest(`${API_URL}/games/top?limit=6&offset=${topGameOffset}`)
-
 // send request function
-function sendRequest (requestUrl, selectedGameTitle) {
+function sendRequest (requestUrl, selectedGame, callback) {
   request.open('GET', requestUrl, true)
   request.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json')
   request.setRequestHeader('Client-ID', clientId)
   request.onerror = () => console.log('error')
-  if (requestUrl === `${API_URL}/games/top?limit=6&offset=${topGameOffset}`) {
-    request.onload = () => {
-      if (request.status >= 200 && request.status < 400) {
-        getTopGames(request.response)
-      }
-    }
-  }
-  if (selectedGameTitle) {
-    request.onload = () => {
-      if (request.status >= 200 && request.status < 400) {
-        showStreams(request.response)
-      }
+  request.onload = () => {
+    if (request.status >= 200 && request.status < 400) {
+      callback(request.response)
     }
   }
   request.send()
 }
 
+sendRequest(`${API_URL}/games/top?limit=6&offset=${topGameOffset}`, null, showTopGames)
+
 // top game section
-function getTopGames (responseData) {
+function showTopGames (responseData) {
   let json
   try {
     json = JSON.parse(responseData)
@@ -59,11 +47,11 @@ function getTopGames (responseData) {
   }
   if (document.querySelector('.placeholder__selected')) {
     document.querySelector('.placeholder__selected').classList.remove('placeholder__selected')
-    lastSelected = ''
-    selectedGameTitle = ''
+    lastSelectedGame = ''
+    selectedGame = ''
   }
   for (let i = 0; i < 5; i++) {
-    const gameNum = mainGames.querySelector(`.main__top${Number(i) + 1}`)
+    const gameNum = document.querySelector(`.main__top${Number(i) + 1}`)
     gameNum.querySelector(
       '.placeholder'
     ).style.background = `url(${json.top[i].game.box.large}) center/cover no-repeat`
@@ -74,63 +62,13 @@ function getTopGames (responseData) {
 
 function clearPreview () {
   for (let i = 0; i < 5; i++) {
-    const gameNum = mainGames.querySelector(`.main__top${Number(i) + 1}`)
+    const gameNum = document.querySelector(`.main__top${Number(i) + 1}`)
     gameNum.querySelector(
       '.placeholder'
     ).style.background = ''
     gameNum.querySelector('.title').innerHTML = ''
   }
 }
-
-mainGames.addEventListener('click', evt => {
-  // when left/right clicked
-  if (evt.target.classList.contains('main__games__carousel')) {
-    if (evt.target.classList.contains('left')) {
-      if (topGameOffset <= 5) return
-      clearPreview()
-      topGameOffset -= 10
-      sendRequest(`${API_URL}/games/top?limit=6&offset=${topGameOffset}`)
-    } else {
-      clearPreview()
-      sendRequest(`${API_URL}/games/top?limit=6&offset=${topGameOffset}`)
-    }
-  }
-
-  if (evt.target.classList.contains('placeholder')) {
-    if (!lastSelected || lastSelected !== evt.target) {
-      document.querySelector('.main__streams').innerHTML = ''
-      streamOffset = 0
-      evt.target.classList.add('placeholder__selected')
-      if (lastSelected) {
-        lastSelected.classList.remove('placeholder__selected')
-      }
-      lastSelected = evt.target
-      console.log(lastSelected)
-      selectedGameTitle = evt.target.nextElementSibling.innerHTML
-    }
-    createDivs()
-    sendRequest(
-      `${API_URL}/streams/?game=${selectedGameTitle.replace(/&amp;/g, '%26')}&limit=20&offset=${streamOffset}`
-      , selectedGameTitle)
-  }
-})
-
-// Search for game
-document.querySelector('.search__btn').addEventListener('click', evt => {
-  evt.preventDefault()
-  const searchedGame = escapeHtml(evt.target.parentNode.querySelector('.search__input').value)
-  document.querySelector('.main__streams').innerHTML = ''
-  streamOffset = 0
-  if (lastSelected) {
-    lastSelected.classList.remove('placeholder__selected')
-  }
-  selectedGameTitle = searchedGame
-  evt.target.parentNode.querySelector('.search__input').value = ''
-  createDivs()
-  sendRequest(
-      `${API_URL}/streams/?game=${selectedGameTitle.replace(/&amp;/g, '%26')}&limit=20&offset=${streamOffset}`
-      , selectedGameTitle)
-})
 
 // create new empty stream divs
 function createDivs () {
@@ -151,22 +89,21 @@ function createDivs () {
     document.querySelector('.main__streams').innerHTML = removeAfterStreams
   }
   for (let i = 0; i < 20; i++) {
-    streamNum = `stream__${streamOffset + 1}`
-    const streamDiv = document.createElement('div')
-    streamDiv.classList = 'stream__container'
-    streamDiv.innerHTML =
-      `<a href="" target="_blank">
-        <div class="stream__preview">
-        </div>
-        <div class="stream__info">
-          <div class="stream__avatar">
+    streamDivNum = `stream__${streamOffset + 1}`
+    const streamDiv =
+      `<div class="stream__container ${streamDivNum}">
+        <a href="" target="_blank">
+          <div class="stream__preview">
           </div>
-          <div class="stream__title">
+          <div class="stream__info">
+            <div class="stream__avatar">
+            </div>
+            <div class="stream__title">
+            </div>
           </div>
-        </div>
-      </a>`
-    streamDiv.classList.add(streamNum)
-    document.querySelector('.main__streams').appendChild(streamDiv)
+        </a>
+      </div>`
+    document.querySelector('.main__streams').innerHTML += streamDiv
     streamOffset += 1
   }
   document.querySelector('.main__streams').innerHTML += afterStreams
@@ -181,7 +118,8 @@ function showStreams (responseData) {
     console.log(err)
     return
   }
-  document.querySelector('.main__streams').querySelector('h1').innerHTML = selectedGameTitle
+  document.querySelector('.main__streams').querySelector('h1').innerHTML = escapeHtml(selectedGame)
+  // 如果抓到的實況筆數不被 20 整除，或等於 0，刪除多餘的空實況卡片。
   if ((streamData.streams.length % 20) !== 0 || streamData.streams.length === 0) {
     const streamOffsetHolder = streamOffset
     for (let i = streamOffset - 20 + streamData.streams.length + 1; i <= streamOffsetHolder; i++) {
@@ -192,6 +130,7 @@ function showStreams (responseData) {
     }
   }
   let newOffsetNum
+  // 將資料放入空的實況卡片裡。
   for (const i in streamData.streams) {
     const streamDataI = streamData.streams[i]
     newOffsetNum = streamOffset - streamData.streams.length + Number(i)
@@ -211,12 +150,63 @@ function showStreams (responseData) {
   }
 }
 
+// 以上為所有的 Function
+
+// 以下為所有的 eventListener
+document.querySelector('.main__games').addEventListener('click', evt => {
+  // when left/right clicked
+  if (evt.target.classList.contains('main__games__carousel')) {
+    if (evt.target.classList.contains('left')) {
+      if (topGameOffset <= 5) return
+      topGameOffset -= 10
+    }
+    clearPreview()
+    sendRequest(`${API_URL}/games/top?limit=6&offset=${topGameOffset}`, null, showTopGames)
+  }
+
+  // When game clicked
+  if (evt.target.classList.contains('placeholder')) {
+    if (!lastSelectedGame || lastSelectedGame !== evt.target) {
+      document.querySelector('.main__streams').innerHTML = ''
+      streamOffset = 0
+      evt.target.classList.add('placeholder__selected')
+      if (lastSelectedGame) {
+        lastSelectedGame.classList.remove('placeholder__selected')
+      }
+      lastSelectedGame = evt.target
+      selectedGame = evt.target.nextElementSibling.innerText
+    }
+    createDivs()
+    sendRequest(
+      `${API_URL}/streams/?game=${encodeURIComponent(selectedGame)}&limit=20&offset=${streamOffset - 20}`
+      , selectedGame, showStreams)
+  }
+})
+
+// Search for game
+document.querySelector('.search__btn').addEventListener('click', evt => {
+  evt.preventDefault()
+  const searchedGame = evt.target.parentNode.querySelector('.search__input').value
+  evt.target.parentNode.querySelector('.search__input').value = ''
+  document.querySelector('.main__streams').innerHTML = ''
+  streamOffset = 0
+  if (lastSelectedGame) {
+    lastSelectedGame.classList.remove('placeholder__selected')
+  }
+  selectedGame = searchedGame
+  createDivs()
+  sendRequest(
+      `${API_URL}/streams/?game=${encodeURIComponent(selectedGame)}&limit=20&offset=${streamOffset - 20}`
+      , selectedGame, showStreams)
+})
+
+
 document.querySelector('.main__streams').addEventListener('click', evt => {
   if (evt.target.innerHTML === 'Load More') {
     createDivs()
     sendRequest(
-      `${API_URL}/streams/?game=${selectedGameTitle.replace(/&amp;/g, '%26')}&limit=20&offset=${streamOffset}`
-      , selectedGameTitle)
+      `${API_URL}/streams/?game=${encodeURIComponent(selectedGame)}&limit=20&offset=${streamOffset - 20}`
+      , selectedGame, showStreams)
   }
 })
 

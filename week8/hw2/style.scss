@@ -300,8 +300,14 @@ a {
 
 @media (max-width: 768px) {
   .header {
-    height: 65px;
+    height: 120px;
     font-size: 10px;
+    &__wraper {
+      display: block;
+    }
+  }
+  .search__input {
+    width: 150px;
   }
   .preview {
     width: 100px;
@@ -350,4 +356,7 @@ a {
     top: 50;
     margin: 0;
   } 
+  .main {
+    top: 130px;
+  }
 }
