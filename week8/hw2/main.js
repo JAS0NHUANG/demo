@@ -9,9 +9,14 @@ let streamDivNum
 let streamOffset = 0
 let lastSelectedGame
 let selectedGame
+let firstLoad = true
 
 // escape html
-function escapeHtml (unsafe) {
+function escapeHtml(unsafe) {
+  if (unsafe === undefined || unsafe === '') {
+    lastSelectedGame = null
+    return 'All'
+  }
   return unsafe
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -20,8 +25,10 @@ function escapeHtml (unsafe) {
     .replace(/'/g, '&#039;')
 }
 
+sendRequest(`${API_URL}/games/top?limit=6&offset=${topGameOffset}`, null, showTopGames)
+
 // send request function
-function sendRequest (requestUrl, selectedGame, callback) {
+function sendRequest(requestUrl, selectedGame, callback) {
   request.open('GET', requestUrl, true)
   request.setRequestHeader('Accept', 'application/vnd.twitchtv.v5+json')
   request.setRequestHeader('Client-ID', clientId)
@@ -34,10 +41,8 @@ function sendRequest (requestUrl, selectedGame, callback) {
   request.send()
 }
 
-sendRequest(`${API_URL}/games/top?limit=6&offset=${topGameOffset}`, null, showTopGames)
-
 // top game section
-function showTopGames (responseData) {
+function showTopGames(responseData) {
   let json
   try {
     json = JSON.parse(responseData)
@@ -58,9 +63,14 @@ function showTopGames (responseData) {
     gameNum.querySelector('.title').innerHTML = json.top[i].game.name
   }
   topGameOffset += 5
+  if (firstLoad === true) {
+    createDivs()
+    sendRequest(`${API_URL}/streams/?limit=20&offset=0`, '', showStreams)
+    firstLoad = false
+  }
 }
 
-function clearPreview () {
+function clearPreview() {
   for (let i = 0; i < 5; i++) {
     const gameNum = document.querySelector(`.main__top${Number(i) + 1}`)
     gameNum.querySelector(
@@ -71,7 +81,7 @@ function clearPreview () {
 }
 
 // create new empty stream divs
-function createDivs () {
+function createDivs() {
   if (streamOffset === -1) return
   const mainStreamsDiv = document.querySelector('.main__streams')
   if (!mainStreamsDiv.querySelector('h1')) {
@@ -110,7 +120,7 @@ function createDivs () {
 }
 
 // streams
-function showStreams (responseData) {
+function showStreams(responseData) {
   let streamData
   try {
     streamData = JSON.parse(responseData)
@@ -200,10 +210,13 @@ document.querySelector('.search__btn').addEventListener('click', evt => {
       , selectedGame, showStreams)
 })
 
-
 document.querySelector('.main__streams').addEventListener('click', evt => {
   if (evt.target.innerHTML === 'Load More') {
     createDivs()
+    if (!selectedGame) {
+      sendRequest(`${API_URL}/streams/?limit=20&offset=${streamOffset - 20}`, '', showStreams)
+      return
+    }
     sendRequest(
       `${API_URL}/streams/?game=${encodeURIComponent(selectedGame)}&limit=20&offset=${streamOffset - 20}`
       , selectedGame, showStreams)
